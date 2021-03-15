@@ -7,39 +7,26 @@ const port=process.env.PORT || 3000;
 hbs.registerPartials(__dirname + '/views/partials')
 app.set('view engine', 'hbs');
 
-/*app.use((req,res,next)=>
-{
+/*app.use((req,res,next)=>{
 	console.log("Running");
-	next();
-});*/
+	//next();    });*/
 app.use((req,res,next)=>{
 	var log=`${req.method} ${req.url}`;
 	console.log(log);
 	fs.appendFile('somefile.log',log+'\n',(err)=>
-	{
-		if(err)
-		{
-			console.log("Some Problem");
-		}
-	});
-	next();
-}
-);
-/*
-app.use((req,res,next)=>
-{
-	res.render('notify.hbs');
-	//next();
-}
-);*/
+	{		if(err)
+		{			console.log("Some Problem");	} });
+	next();	});
+
+/*app.use((req,res,next)=>
+{	res.render('notify.hbs');
+	//next();	});*/
 app.use(express.static(__dirname + '/public'));
 hbs.registerHelper('getCurrentYear', () => {
-  return new Date().getFullYear()
-});
+  return new Date().getFullYear() });
 
 hbs.registerHelper('Capt', (text) => {
-  return text.toUpperCase();
-});
+  return text.toUpperCase();	});
 
 app.get('/', (req, res) => {
   res.render('home.hbs', {
